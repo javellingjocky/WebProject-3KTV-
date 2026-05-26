@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3KTV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 0;
+            box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            background-color: rgba(255,255,255,0.9);
+            flex-wrap: wrap;
+        }
+
+        .nav-bar img.logo {
+            width: 50px;
+        }
+
+        .nav-bar button, .nav-bar select {
+            font-size: 18px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+        }
+
+        /* Slider container */
+        .container {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .wrapper-holder {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .wrapper-holder > div {
+            flex: 1 0 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #sliding-img-1 { background-image: url("slide 1.png"); }
+        #sliding-img-2 { background-image: url("slide 2.png"); }
+        #sliding-img-3 { background-image: url("bundu-1.png"); }
+        #sliding-img-4 { background-image: url("sister-show-1.png"); }
+
+        .button-holder {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .button {
+            width: 15px;
+            height: 15px;
+            background-color: wheat;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .button.active {
+            background-color: orange;
+        }
+
+        /* Sections layout */
+        .flex-section {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            width: 90vw;
+            margin: 2rem auto;
+            flex-wrap: wrap;
+        }
+
+        .flex-section .slider, .flex-section .video {
+            flex: 2;
+        }
+
+        .flex-section .content, .flex-section .video-text {
+            flex: 1;
+            padding: 15px;
+        }
+
+        .content, .video-text {
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 10px;
+        }
+
+        .content h2, .video-text h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .content ul {
+            padding-left: 20px;
+        }
+
+        /* News Cards */
+        .news-section {
+            width: 90vw;
+            margin: 2rem auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .news-card {
+            flex: 1 1 300px;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .news-card .news-content {
+            padding: 15px;
+        }
+
+        .news-card button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: orange;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1c1c1c;
+            padding: 40px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            color: #fff;
+        }
+
+        .footer a {
+            color: #fcbf49;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer a:hover {
+            color: #fff;
+        }
+
+        .copyright {
+            text-align: center;
+            background-color: #111;
+            padding: 15px 0;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        button.explore {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: orange;
+            color: white;
+        }
+        /* Footer */
+footer {
+    background-color: #ffffff; /* dark background */
+    color: #000000;
+    width: 100%;
+    padding: 40px 20px 20px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.footer-column {
+    flex: 1 1 200px;
+}
+
+.footer-column h4 {
+    color: #fcbf49;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.footer-column a {
+    display: block;
+    color: #000000;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+}
+
+.footer-column a:hover {
+    color: #fcbf49;
+}
+
+.logo-contact .footer-logo {
+    width: 100px;
+    margin-bottom: 15px;
+}
+
+.logo-contact p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.social-icons {
+    margin-top: 10px;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.social-icons img {
+    width: 25px;
+    height: 25px;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #000000;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <img src="3k logo (1).png" alt="3KTV Logo" style="width: 200px; height: auto;">
+        <div class="nav-bar">
+            <img src="3k logo (1).png" class="logo">
+            <button onclick="window.location.href='3kTv.html'">Home</button>
+            <select>
+                <option value="news">News</option>
+                <option value="local">Local</option>
+                <option value="international">International</option>
+                <option value="sports">Sports</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="technology">Technology</option>
+                <option value="health">Health</option>
+                <option value="business">Business</option>
+            </select>
+            <button onclick="window.location.href='services.html'">Services</button>
+            <button onclick="window.location.href='https://www.youtube.com/@3ktvzim98'">▶ Youtube</button>
+            <button onclick="window.location.href='listen.html'">🎵 Listen</button>
+            <button onclick="window.location.href='contact.html'">Contact Us</button>
+        </div>
+    </div>
+
+    <!-- Slider + Latest Content -->
+    <div class="flex-section">
+        <!-- Slider -->
+        <div class="slider container">
+            <div class="wrapper-holder">
+                <div id="sliding-img-1"></div>
+                <div id="sliding-img-2"></div>
+                <div id="sliding-img-3"></div>
+                <div id="sliding-img-4"></div>
+            </div>
+            <div class="button-holder">
+                <span class="button active"></span>
+                <span class="button"></span>
+                <span class="button"></span>
+                <span class="button"></span>
+            </div>
+        </div>
+
+        <!-- Latest Content -->
+        <div class="content">
+            <h2>Latest Content</h2>
+            <p>Check out our newest videos, news updates, and features! Stay informed with trending entertainment and special reports from 3KTV.</p>
+            <ul>
+                <li>🎬 Exclusive interviews with local celebrities</li>
+                <li>📰 Breaking news updates from Zimbabwe and beyond</li>
+                <li>🎵 Latest music and cultural events</li>
+                <li>📺 Special reports and documentaries</li>
+            </ul>
+            <p style="text-align: center;">
+                <button class="explore" onclick="window.location.href='latest.html'">Explore All Content</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- Video + Text Section -->
+    <div class="flex-section">
+        <div class="video">
+            <video width="100%" height="315" controls autoplay muted style="border-radius:10px;">
+                <source src="We are the best of Zimbabwe.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="video-text">
+            <h2>About This Video</h2>
+            <p>This video showcases the best of Zimbabwe, highlighting our culture, music, and latest news stories.</p>
+            <p>Stay tuned for exciting updates and exclusive coverage brought to you by 3KTV.</p>
+            <p style="text-align: center;">
+                <button class="explore" onclick="window.location.href='latest.html'">Explore More Videos</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- News Section -->
+    <section class="news-section">
+        <!-- News Card 1 -->
+        <div class="news-card">
+            <img src="mr president.png" alt="News 1" onclick="https://www.newsday.co.zw/">
+            <div class="news-content">
+                <h3>Local Event Highlights</h3>
+                <p>Catch up on the latest events happening in your area with exclusive coverage from our team.</p>
+                <button onclick="https://www.newsday.co.zw/">Read More</button>
+            </div>
+        </div>
+
+        <!-- News Card 2 -->
+        <div class="news-card">
+            <img src="international news.png" alt="News 2" onclick="https://www.news24.com/">
+            <div class="news-content">
+                <h3>International Headlines</h3>
+                <p>Stay updated with top international news stories including politics, economy, and global events that matter.</p>
+                <button onclick="whttps://www.news24.com/">Read More</button>
+            </div>
+        </div>
+        <!-- News Card 3 --> <div style="flex: 1 1 300px; background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+             <img onclick="https://www.newsday.co.zw/category/5/sport" src="zimfootball.jpg" alt="News 3" style="width: 100%; height: 180px; object-fit: cover;"> 
+             <div style="padding: 15px;">
+                 <h3>Sports Updates</h3> 
+                 <p style="font-size: 14px; line-height: 1.4;">Get the latest scores, highlights, and news from local and international sports events.</p> 
+                 <button onclick="document.location'https://www.newsday.co.zw/category/5/sport'" style="margin-top: 10px; padding: 8px 15px; background-color: orange; border: none; color: white; border-radius: 5px; cursor: pointer;">Read More</button>
+</div></div>
+        <script>
+    const wrapper = document.querySelector('.wrapper-holder');
+    const buttons = document.querySelectorAll('.button');
+    let index = 0;
+    const slideCount = wrapper.children.length;
+    let interval;
+
+    function showSlide(i) {
+        index = i;
+        wrapper.style.transform = `translateX(-${i * 100}%)`;
+        buttons.forEach(btn => btn.classList.remove('active'));
+        buttons[i].classList.add('active');
+    }
+
+    buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+            showSlide(i);
+            resetAutoPlay();
+        });
+    });
+
+    function autoPlay() {
+        interval = setInterval(() => {
+            index = (index + 1) % slideCount;
+            showSlide(index);
+        }, 4000);
+    }
+
+    function resetAutoPlay() {
+        clearInterval(interval);
+        autoPlay();
+    }
+
+    // initialize
+    showSlide(0);
+    autoPlay();
+</script>
+<!-- Footer -->
+<footer>
+  <div class="footer-container">
+    <!-- Logo & Contact -->
+    <div class="footer-column logo-contact">
+      <img src="3k logo (1).png" alt="3KTV Logo" class="footer-logo">
+      <p>Eastgate, 7th Floor, Gold Bridge,<br>Harare, Zimbabwe</p>
+      <p><strong>Phone:</strong> +263 24 2668586</p>
+      <p><strong>Email:</strong> marketing@3ktv.co.zw</p>
+      <div class="social-icons">
+        <a href="#"><img src="x logo.png" alt="X"></a>
+        <a href="#"><img src="fb logo.png" alt="Facebook"></a>
+        <a href="#"><img src="instagram.jpg" alt="Instagram"></a>
+        <a href="#"><img src="whatsapp.jpg" alt="WhatsApp"></a>
+        <a href="#"><img src="linkedin.png" alt="LinkedIn"></a>
+        <a href="#"><img src="youtube.jpg" alt="YouTube"></a>
+      </div>
+    </div>
+
+    <!-- Useful Links -->
+    <div class="footer-column">
+      <h4>Useful Links</h4>
+      <a href="#">Home</a>
+      <a href="#">About us</a>
+      <a href="#">Terms of service</a>
+      <a href="#">Privacy policy</a>
+    </div>
+
+    <!-- Our Services -->
+    <div class="footer-column">
+      <h4>Our Services</h4>
+      <a href="#">Advertising campaigns</a>
+      <a href="#">Infomercials</a>
+      <a href="#">Content Submissions</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © Copyright 2025 <strong>Jester Media Services (Pvt) Ltd</strong>. All Rights Reserved. <br>
+    Designed by Nqabile Recorporations
+  </div>
+</footer>
+
+</body>
+</html>
